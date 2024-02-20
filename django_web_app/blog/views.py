@@ -16,7 +16,7 @@ from django.contrib.staticfiles.views import serve
 
 from django.db.models import Q
 from django.forms import DateTimeInput
-import pytz 
+# import pytz 
 
 def home(request):
     context = {
@@ -72,8 +72,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields['date_ended'].widget = DateTimeInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M') 
-        form.fields['date_ended'].input_formats = ('%Y-%m-%dT%H:%M',)  # รูปแบบนี้เป็นตัวอย่าง คุณสามารถปรับให้เป็นรูปแบบไทยได้ตามต้องการ
-        form.fields['date_ended'].timezone = pytz.timezone('Asia/Bangkok')  # กำหนดโซนเวลาไทย
+        # form.fields['date_ended'].input_formats = ('%Y-%m-%dT%H:%M',)  # รูปแบบนี้เป็นตัวอย่าง คุณสามารถปรับให้เป็นรูปแบบไทยได้ตามต้องการ
+        # form.fields['date_ended'].timezone = pytz.timezone('Asia/Bangkok')  # กำหนดโซนเวลาไทย
         return form
     
     def form_valid(self, form):
@@ -90,8 +90,8 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields['date_ended'].widget = DateTimeInput(attrs={'type': 'datetime-local'}, format=' ')
-        form.fields['date_ended'].input_formats = ('%Y-%m-%dT%H:%M',)  # รูปแบบนี้เป็นตัวอย่าง คุณสามารถปรับให้เป็นรูปแบบไทยได้ตามต้องการ
-        form.fields['date_ended'].timezone = pytz.timezone('Asia/Bangkok')  # กำหนดโซนเวลาไทย
+        # form.fields['date_ended'].input_formats = ('%Y-%m-%dT%H:%M',)  # รูปแบบนี้เป็นตัวอย่าง คุณสามารถปรับให้เป็นรูปแบบไทยได้ตามต้องการ
+        # form.fields['date_ended'].timezone = pytz.timezone('Asia/Bangkok')  # กำหนดโซนเวลาไทย
         return form
     
     def form_valid(self, form):

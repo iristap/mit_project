@@ -15,8 +15,11 @@ class Post(models.Model):
 	file = models.FileField(null=True,blank=True,upload_to='Files')
 	content = models.TextField()
 	date_posted = models.DateTimeField(default=timezone.now)
+	date_ended = models.DateTimeField(null=True, blank=True)
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
 	category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+	participants = models.ManyToManyField(User, related_name='participants', blank=True)
+	max_participants = models.PositiveIntegerField(null=True)
 
 	def __str__(self):
 		return self.title

@@ -33,7 +33,29 @@
           {% endif %}
           {% else %}
         <p>{{ object.category }}</p>
+        {% if post.max_participants %}
+            <p>จำนวนคนที่เข้าร่วม: {{ post.participants.count }}/{{ post.max_participants }}</p>
+          {% else %}
+          <p>จำนวนคนที่เข้าร่วม: ไม่จำกัดจำนวน </p>
+          {% endif %}
+          {% if post.date_ended %}
+          <p>วัน: {{ post.date_ended|date:"d F Y H:i" }}</p> <!-- แสดงวันสิ้นสุด -->
+          {% endif %}
         {% endif %}
+        {% if not post.author == request.user %}
+        <form action="{% url 'join-post' post.id %}" method="post">
+          {% csrf_token %}
+          {% if not request.user == post.author %}
+              {% if post.participants.count >= post.max_participants %}
+                  <button type="button" class="btn btn-info" disabled>เต็ม</button>
+              {% elif request.user in post.participants.all %}
+                  <button type="submit" class="btn btn-primary" disabled>เข้าร่วมแล้ว</button>
+              {% else %}
+                  <button type="submit" class="btn btn- ">เข้าร่วม</button>
+              {% endif %}
+          {% endif %}
+      </form>
+        {% endif %}       
       </div>
       
       
@@ -43,7 +65,18 @@
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
             ###ปิดการรับ###
           </div>
-        {% endif %}
+      {% endif %}
+      <div>
+        <h4>รายชื่อผู้เข้าร่วม</h4>
+        <ul>
+            {% for participant in object.participants.all %}
+                <li>{{ participant }}</li>
+            {% empty %}
+                <li>ไม่มีผู้เข้าร่วมในขณะนี้</li>
+            {% endfor %}
+        </ul>
     </div>
+    </div>
+    
   </article>
 {% endblock content %}

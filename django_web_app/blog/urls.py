@@ -19,4 +19,5 @@ urlpatterns = [
     path('media/Files/<int:pk>',PostDeleteView.as_view(),name='post-delete' ),
     path('search/',views.search,name='search' ),
     path('about/', views.about, name='blog-about'),
+    path('post/<int:pk>/join/', views.join_post, name='join-post'),
 ]

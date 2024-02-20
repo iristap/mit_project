@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404 ,redirect
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
@@ -11,7 +11,7 @@ from django.views.generic import (
 )
 from .models import Post
 import operator
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy ,reverse
 from django.contrib.staticfiles.views import serve
 
 from django.db.models import Q
@@ -119,3 +119,16 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
+
+def join_post(request, pk):
+    # ดึงโพสต์ที่ต้องการเข้าร่วมจากฐานข้อมูล
+    post = get_object_or_404(Post, pk=pk)
+    
+    # เพิ่มผู้ใช้ปัจจุบันในรายชื่อผู้เข้าร่วมโพสต์
+    post.participants.add(request.user)
+    
+    # บันทึกการเปลี่ยนแปลง
+    post.save()
+    
+    # นำผู้ใช้กลับไปยังหน้ารายละเอียดโพสต์หลังจากการเข้าร่วม
+    return redirect(reverse('blog-home'))   

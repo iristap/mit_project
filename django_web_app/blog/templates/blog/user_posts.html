@@ -11,7 +11,22 @@
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
+            {% if post.category %}
+              <p>category: {{ post.category }}</p>
+            {% endif %}
+
+            {% if post.max_participants %}
+              <p>จำนวนคนที่เข้าร่วม: {{ post.participants.count }}/{{ post.max_participants }}</p>
+            {% else %}
+            <p>จำนวนคนที่เข้าร่วม: ไม่จำกัดจำนวน </p>
+            {% endif %}
+
+            {% if post.date_ended %}
+            <p>วัน: {{ post.date_ended|date:"d F Y H:i" }}</p> <!-- แสดงวันสิ้นสุด --> 
+            {% endif %}
+
           </div>
+          
         </article>
     {% endfor %}
     {% if is_paginated %}

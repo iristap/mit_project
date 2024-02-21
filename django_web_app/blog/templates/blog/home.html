@@ -22,15 +22,19 @@
         
           </div>
           {% if post.category %}
-            <p>category: {{ post.category }}</p>
+            <p class="mb-1"><strong>category</strong>: <span class="badge badge-secondary">{{ post.category }}</span></p>
           {% endif %}
-          {% if post.max_participants %}
-            <p>จำนวนคนที่เข้าร่วม: {{ post.participants.count }}/{{ post.max_participants }}</p>
+          {% if post.max_participants == post.participants.count %}
+              <p class="mb-1"><strong>จำนวนคนที่เข้าร่วม</strong>: <span class="badge badge-danger">{{ post.participants.count }}/{{ post.max_participants }}</span></p>
           {% else %}
-          <p>จำนวนคนที่เข้าร่วม: ไม่จำกัดจำนวน </p>
+              {% if post.max_participants %}
+                  <p class="mb-1"><strong>จำนวนคนที่เข้าร่วม</strong>: <span class="badge badge-primary">{{ post.participants.count }}/{{ post.max_participants }}</span></p>
+              {% else %}
+                  <p class="mb-1"><strong>จำนวนคนที่เข้าร่วม</strong>: <span class="badge badge-success">ไม่จำกัดจำนวน</span> </p>
+              {% endif %}
           {% endif %}
           {% if post.date_ended %}
-          <p>วัน: {{ post.date_ended|date:"d F Y H:i" }}</p> <!-- แสดงวันสิ้นสุด -->
+          <p class="mb-1"><strong>วัน</strong>: <span class="badge badge-info">{{ post.date_ended|date:"d F Y H:i" }}</span></p> <!-- แสดงวันสิ้นสุด -->
           {% endif %}
         
 

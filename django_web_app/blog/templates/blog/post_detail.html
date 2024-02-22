@@ -32,7 +32,9 @@
             <a href="{{ object.file.url }}"  class="text-dark"><h5>{{ object.file }}</h5></a>
           {% endif %}
           {% else %}
+        {% if object.category %}
         <p>{{ object.category }}</p>
+        {% endif %} 
         {% if post.max_participants %}
             <p>จำนวนคนที่เข้าร่วม: {{ post.participants.count }}/{{ post.max_participants }}</p>
           {% else %}
@@ -66,15 +68,23 @@
             ###ปิดการรับ###
           </div>
       {% endif %}
-      <div>
-        <h4>รายชื่อผู้เข้าร่วม</h4>
-        <ul>
-            {% for participant in object.participants.all %}
-                <li>{{ participant }}</li>
-            {% empty %}
-                <li>ไม่มีผู้เข้าร่วมในขณะนี้</li>
-            {% endfor %}
-        </ul>
+      <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">รายชื่อผู้เข้าร่วม <span class="badge badge-secondary">หัวตี้: {{ object.author }}</span></h4>
+                        <ul class="list-group">
+                            {% for participant in object.participants.all %}
+                                <li class="list-group-item">{{ participant }}</li>
+                            {% empty %}
+                                <li class="list-group-item">ไม่มีผู้เข้าร่วมในขณะนี้</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
     

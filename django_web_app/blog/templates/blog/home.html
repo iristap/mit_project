@@ -24,7 +24,7 @@
           {% if post.category %}
             <p class="mb-1"><strong>category</strong>: <span class="badge badge-secondary">{{ post.category }}</span></p>
           {% endif %}
-          {% if post.max_participants == post.participants.count %}
+          {% if post.max_participants == post.participants.count and ost.max_participants > 0 %}
               <p class="mb-1"><strong>จำนวนคนที่เข้าร่วม</strong>: <span class="badge badge-danger">{{ post.participants.count }}/{{ post.max_participants }}</span></p>
           {% else %}
               {% if post.max_participants %}
@@ -41,7 +41,7 @@
           <form action="{% url 'join-post' post.id %}" method="post">
             {% csrf_token %}
             {% if not request.user == post.author %}
-                {% if post.participants.count >= post.max_participants %}
+                {% if post.participants.count >= post.max_participants and post.max_participants > 0%}
                     <button type="button" class="btn btn-info" disabled>เต็ม</button>
                 {% elif request.user in post.participants.all %}
                     <button type="submit" class="btn btn-primary" disabled>เข้าร่วมแล้ว</button>

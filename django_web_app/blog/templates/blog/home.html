@@ -41,7 +41,7 @@
           <form action="{% url 'join-post' post.id %}" method="post">
             {% csrf_token %}
             {% if not request.user == post.author %}
-                {% if post.participants.count >= post.max_participants and post.max_participants > 0%}
+                {% if post.participants.count >= post.max_participants and post.max_participants > 0 %}
                     <button type="button" class="btn btn-info" disabled>เต็ม</button>
                 {% elif request.user in post.participants.all %}
                     <button type="submit" class="btn btn-primary" disabled>เข้าร่วมแล้ว</button>

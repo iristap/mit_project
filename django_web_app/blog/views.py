@@ -13,7 +13,7 @@ from .models import Post
 import operator
 from django.urls import reverse_lazy ,reverse
 from django.contrib.staticfiles.views import serve
-
+from django.http import HttpResponseRedirect
 from django.db.models import Q
 from django.forms import DateTimeInput
 # import pytz 
@@ -131,4 +131,4 @@ def join_post(request, pk):
     post.save()
     
     # นำผู้ใช้กลับไปยังหน้ารายละเอียดโพสต์หลังจากการเข้าร่วม
-    return redirect(reverse('blog-home'))   
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  

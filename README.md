@@ -1,6 +1,6 @@
 # mit_project
 
- mit_project naja
+ ManaMajoin Web Application
 
 <h2>Usage :</h2>
 
